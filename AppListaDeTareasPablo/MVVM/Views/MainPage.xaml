@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppListaDeTareasPablo.MVVM.Views.MainPage"
+             Title="MainPage">
+
+    <VerticalStackLayout>
+        <Button Text="Agregar Tarea"
+                Command="{Binding ComandoAgregarTarea}"
+                BackgroundColor="Red"
+                TextColor="White"
+                />
+        <CollectionView ItemsSource="{Binding Tareas}"
+                    SelectionMode="Single"
+                    SelectionChanged="OnCollectionViewSelectionChanged">
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Grid RowDefinitions="*,Auto" ColumnDefinitions="*,*,*">
+                    <Frame BorderColor="White"
+                           InputTransparent="True"
+                           Grid.ColumnSpan="3">
+                        <Frame.Background>
+                            <LinearGradientBrush EndPoint="1,0">
+                                <GradientStop Offset="0" Color="#F84549"/>
+                                <GradientStop Offset="1" Color="#DEE2E6"/>
+                            </LinearGradientBrush>
+                        </Frame.Background>
+                    </Frame>
+                    <Label Text="{Binding nombre}" VerticalOptions="Center" FontSize="Default" Grid.Column="0" InputTransparent="True"/>
+                    <CheckBox IsChecked="{Binding completada}" VerticalOptions="Center" Grid.Column="1" InputTransparent="True"/>
+                    <Button Text="Eliminar"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ComandoEliminarTarea}"
+                        CommandParameter="{Binding}"
+                        BackgroundColor="Red"
+                        TextColor="White"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Margin="0,10,0,10"
+                        Grid.Column="2"/>
+                </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
